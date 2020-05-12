@@ -11,7 +11,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 from LSTM import LSTMNet
 import numpy as np
-torch.manual_seed(1)
+
+# torch.manual_seed(1)
 
 
 def bulid_consensus(matches):

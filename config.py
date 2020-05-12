@@ -24,6 +24,7 @@ HIDDEN_DIM = 64
 target_len = 2
 seq_len = 5
 
+print('Number of available GPUs:', torch.cuda.device_count())
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 names = ["Nearest Neighbors", "Linear SVM", "RBF SVM", "Gaussian Process",
