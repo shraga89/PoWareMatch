@@ -4,7 +4,6 @@ import pandas as pd
 import random, time, datetime
 import HHandler as HH
 import Evaluator as E
-import config
 from config import *
 import torch
 import torch.nn as nn
@@ -13,6 +12,10 @@ import torch.optim as optim
 from LSTM import LSTMNet
 import numpy as np
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+print('Number of available GPUs:', torch.cuda.device_count())
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(device)
 # torch.manual_seed(1)
 
 

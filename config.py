@@ -9,7 +9,7 @@ from sklearn.naive_bayes import GaussianNB
 import torch
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+
 
 dir = './'
 epochs = 10
@@ -24,8 +24,6 @@ HIDDEN_DIM = 64
 target_len = 2
 seq_len = 5
 
-print('Number of available GPUs:', torch.cuda.device_count())
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 names = ["Nearest Neighbors", "Linear SVM", "RBF SVM", "Gaussian Process",
          "Decision Tree", "Random Forest", "Neural Net", "AdaBoost",
