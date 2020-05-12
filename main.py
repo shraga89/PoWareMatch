@@ -4,6 +4,7 @@ import pandas as pd
 import random, time, datetime
 import HHandler as HH
 import Evaluator as E
+import config
 from config import *
 import torch
 import torch.nn as nn
