@@ -199,7 +199,29 @@ for alg in list(alg_matches.keys()) + ['all']:
                         row_i += 1
     i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
-df.to_csv('res/' + st + '.csv')
+df.to_csv('res/raw_' + st + '.csv')
 
+matchers = df['matcher'].unique().tolist()
+algs = df['alg'].unique().tolist()
+all_correct = 65
+res = pd.DataFrame(columns=['alg', 'matcher', 'P', 'R'])
+row_i = 1
+for alg in algs:
+    for matcher in matchers:
+        sum_correct = len(df[(df['alg'] == alg)
+                             & (df['matcher'] == matcher)
+                             & (df['pred'] == df['real'])
+                             & (df['real'] == 1)])
+        sum_answered = len(df[(df['alg'] == alg)
+                             & (df['matcher'] == matcher)
+                             & (df['pred'] == 1)])
+        res.loc[row_i] = np.array([alg,
+                                   matcher,
+                                   sum_correct/sum_answered if sum_answered > 0 else 0.0,
+                                   sum_correct/all_correct])
+        row_i += 1
 
+df.to_csv('res/eval_' + st + '.csv')
 
+res[['P','R']]=res[['P','R']].astype(float)
+pd.DataFrame(res.groupby('alg')[['P','R']].mean()).to_csv('res/sum_' + st + '.csv')

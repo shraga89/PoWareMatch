@@ -7,12 +7,15 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 import torch
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
 dir = './'
-epochs = 1
+epochs = 10
 # epochs = 10
 # testset_size = 2
-folds = 2
+folds = 5
 # folds = 2
 num_subs = 50
 max_subs = 50
