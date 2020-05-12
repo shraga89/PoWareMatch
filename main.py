@@ -45,18 +45,18 @@ def build_feature_seq(seqs, is_multi_algs = False):
         return zip(*seqs)
 
 
-def create_participants_groups():
-    sugs = {'with':[], 'without':[], 'ones':[]}
-    sugs['without'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/ExperimentsNew/0')
-    sugs['without'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/0')
-    sugs['with'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/ExperimentsNew/2')
-    sugs['ones'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/1a')
-    sugs['ones'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/1b')
-    sugs['with'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/2')
-    df = pd.read_csv(str(dir + 'participants.csv'))
-    sugs['without'] += list(df[df['group'] == 0])
-    sugs['with'] += list(df[df['group'] == 2])
-    return sugs
+# def create_participants_groups():
+#     sugs = {'with':[], 'without':[], 'ones':[]}
+#     sugs['without'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/ExperimentsNew/0')
+#     sugs['without'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/0')
+#     sugs['with'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/ExperimentsNew/2')
+#     sugs['ones'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/1a')
+#     sugs['ones'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/1b')
+#     sugs['with'] += listdir('C:/Users/shrag/Dropbox/2StepManualMatch/Experiments/2')
+#     df = pd.read_csv(str(dir + 'participants.csv'))
+#     sugs['without'] += list(df[df['group'] == 0])
+#     sugs['with'] += list(df[df['group'] == 2])
+#     return sugs
 
 
 def create_algs_dict():
@@ -85,7 +85,6 @@ def algs_seq(match_seq, alg_matches, alg = 'all'):
             alg_seq += [sims, ]
     return alg_seq
 
-groups = create_participants_groups()
 matchers_full = listdir(str(dir + 'ExperimentData/'))
 matchers = []
 for m in matchers_full:
