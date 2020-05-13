@@ -1,7 +1,7 @@
 from os import listdir,path
 from sklearn.model_selection import KFold
 import pandas as pd
-import random, time, datetime
+import random, time, datetime,sys
 import HHandler as HH
 import Evaluator as E
 from config import *
@@ -16,6 +16,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 print('Number of available GPUs:', torch.cuda.device_count())
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)
+sys.stdout.flush()
 # torch.manual_seed(1)
 
 
@@ -96,6 +97,7 @@ for m in matchers_full:
     if path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
         matchers += [m]
 print('found ', len(matchers), ' matchers')
+sys.stdout.flush()
 matchers_ids = dict(enumerate(matchers))
 
 evaluator = E.Evaluator()
@@ -138,6 +140,7 @@ matches_train = {}
 for alg in list(alg_matches.keys()) + ['all']:
 # for alg in ['all']:
     print('Staring', alg, 'Experiment')
+    sys.stdout.flush()
     if alg == 'all':
         seq_len = 16
     model = LSTMNet(seq_len, HIDDEN_DIM, target_len, device)
