@@ -204,7 +204,7 @@ for alg in list(alg_matches.keys()) + ['all']:
                                                                                acc_seqs[matcher]):
                         df.loc[row_i] = np.array([clf_name + ' ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred, real])
                         row_i += 1
-    i += 1
+        i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 df.to_csv('res/raw_' + st + '.csv')
 
@@ -228,7 +228,7 @@ for alg in algs:
                                    sum_correct/all_correct])
         row_i += 1
 
-df.to_csv('res/eval_' + st + '.csv')
+res.to_csv('res/eval_' + st + '.csv')
 
 res[['P','R']]=res[['P','R']].astype(float)
 pd.DataFrame(res.groupby('alg')[['P','R']].mean()).to_csv('res/sum_' + st + '.csv')
