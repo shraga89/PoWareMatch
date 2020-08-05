@@ -1,7 +1,7 @@
-from os import listdir,path
+from os import listdir, path
 from sklearn.model_selection import KFold
 import pandas as pd
-import random, time, datetime,sys
+import random, time, datetime, sys
 import HHandler as HH
 import Evaluator as E
 from config import *
@@ -9,7 +9,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from LSTM import LSTMNet
+# from LSTM import LSTMNet
+from MultiLSTM import LSTMNet  # new
 import numpy as np
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
@@ -17,6 +18,8 @@ print('Number of available GPUs:', torch.cuda.device_count())
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)
 sys.stdout.flush()
+
+
 # torch.manual_seed(1)
 
 
@@ -40,7 +43,7 @@ def bulid_consensus_seq(consensus, match_seq):
     return consensus_seq
 
 
-def build_feature_seq(seqs, is_multi_algs = False):
+def build_feature_seq(seqs, is_multi_algs=False):
     if is_multi_algs:
         temp = zip(*seqs)
         out = list()
@@ -68,14 +71,14 @@ def build_feature_seq(seqs, is_multi_algs = False):
 def create_algs_dict():
     alg_matches = {}
     algs = pd.read_csv(str(dir + 'algs.csv'))
-    for alg in list(algs.columns) :
+    for alg in list(algs.columns):
         if alg in ['candName', 'targName']: continue
         temp = algs[['candName', 'targName', alg]].values.tolist()
         alg_matches[alg] = {(val[1], val[0]): val[2] for val in temp}
     return alg_matches
 
 
-def algs_seq(match_seq, alg_matches, alg = 'all'):
+def algs_seq(match_seq, alg_matches, alg='all'):
     alg_seq = []
     if alg != 'all':
         alg_match = alg_matches[alg]
@@ -91,6 +94,7 @@ def algs_seq(match_seq, alg_matches, alg = 'all'):
             alg_seq += [sims, ]
     return alg_seq
 
+
 matchers_full = listdir(str(dir + 'ExperimentData/'))
 matchers = []
 for m in matchers_full:
@@ -100,12 +104,19 @@ print('found ', len(matchers), ' matchers')
 sys.stdout.flush()
 matchers_ids = dict(enumerate(matchers))
 
+# matchers = matchers[:5]
+
 evaluator = E.Evaluator()
 quality = {}
 features = {}
 match_seqs = {}
 acc_seqs = {}
+P_seqs = {}  # new
+F_seqs = {}  # new
 pred_seqs = {}
+new_conf_seqs = {}  # new
+P_pred_seqs = {}  # new
+F_pred_seqs = {}  # new
 conf_seqs = {}
 time_seqs = {}
 consensus_seqs = {}
@@ -114,13 +125,14 @@ alg_seqs = {}
 alg_matches = create_algs_dict()
 matches = {}
 matcher_count = 1
-matcher_number = len(matchers)+1
-df = pd.DataFrame(columns=['alg', 'matcher', 'correspondence', 'conf', 'time', 'con', 'sug', 'alg_val', 'pred', 'real'])
+matcher_number = len(matchers) + 1
+df = pd.DataFrame(columns=['alg', 'matcher', 'correspondence', 'conf', 'time', 'con', 'sug', 'alg_val',
+                           'pred_conf', 'pred', 'real', 'P_hat', 'P', 'F_hat', 'F'])
 kfold = KFold(folds, True, 1)
 row_i = 1
 for matcher in matchers:
     matcher_count += 1
-#     print('Matcher Number', matcher)
+    print('Matcher Number', matcher)
     Hmatcher = HH.HHandler(matcher)
     match = Hmatcher.getMatch()
     match_seqs[matcher], conf_seqs[matcher], time_seqs[matcher] = Hmatcher.getSeqs()
@@ -130,20 +142,20 @@ for matcher in matchers:
     sug_seqs[matcher] = len(match_seqs[matcher]) * [is_sug, ]
     quality[matcher] = evaluator.evaluate(match)
     acc_seqs[matcher] = evaluator.getCorrSeq(match_seqs[matcher])
+    P_seqs[matcher] = evaluator.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "P")  # new
+    F_seqs[matcher] = evaluator.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "F")  # new
     matches[matcher] = match
-
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 print(st)
 matches_train = {}
 for alg in list(alg_matches.keys()) + ['all']:
-# for alg in ['all']:
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
     if alg == 'all':
         seq_len = 16
     model = LSTMNet(seq_len, HIDDEN_DIM, target_len, device)
-    loss_function = nn.NLLLoss()
+    mse, crossEntropy = nn.MSELoss(), nn.NLLLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.1)
     i = 1
     for trainset, testset in kfold.split(matchers):
@@ -155,7 +167,7 @@ for alg in list(alg_matches.keys()) + ['all']:
         i += 1
         consensus = bulid_consensus(matches_train)
         for e in range(epochs):
-            print("Starting epoch " + str(e+1))
+            print("Starting epoch " + str(e + 1))
             for matcher in train:
                 consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
                 alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
@@ -164,17 +176,25 @@ for alg in list(alg_matches.keys()) + ['all']:
                                                          consensus_seqs[matcher],
                                                          sug_seqs[matcher],
                                                          alg_seqs[matcher]],
-                                                         alg == 'all')),
+                                                        alg == 'all')),
                                  dtype=torch.float)
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
+                P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float).view(-1, 1)  # new
+                F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float).view(-1, 1)  # new
                 model.zero_grad()
-                Y_hat = model(X)
-                loss = loss_function(Y_hat, Y)
-                loss.backward()
+                _, Y_hat, P_hat, F_hat = model(X)
+                loss1 = crossEntropy(Y_hat, Y)  # new
+                loss2 = mse(P_hat, P)  # new
+                loss3 = mse(F_hat, F)  # new
+                loss = loss1 + loss2 + loss3  # new
+                loss.backward()  # new
                 optimizer.step()
                 for clf_name, clf in classifiers:
                     if len(list(np.unique(Y))) != 1:
                         clf.fit(X=X, y=Y)
+                for reg_name, regP, regF in regressors:
+                    regP.fit(X=X, y=P)
+                    regF.fit(X=X, y=F)
         with torch.no_grad():
             for matcher in test:
                 consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
@@ -187,24 +207,52 @@ for alg in list(alg_matches.keys()) + ['all']:
                                                         alg == 'all')),
                                  dtype=torch.float)
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
-                Y_hat = model(X)
+                P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float)  # new
+                F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float)  # new
+                Y_conf, Y_hat, P_hat, F_hat = model(X)
+                new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_conf, dtype=torch.float).tolist()
                 pred_seqs[('deep ' + alg, matcher)] = torch.tensor(torch.max(Y_hat, 1)[1], dtype=torch.float).tolist()
-                for corr, conf, time, con, sug, alg_val, pred, real in zip(match_seqs[matcher], conf_seqs[matcher],
-                                            time_seqs[matcher], consensus_seqs[matcher],
-                                            sug_seqs[matcher], alg_seqs[matcher],
-                                            pred_seqs[('deep ' + alg, matcher)], acc_seqs[matcher]):
-                    df.loc[row_i] = np.array(['deep ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred, real])
+                P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat[0], dtype=torch.float).tolist()
+                F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat[0], dtype=torch.float).tolist()
+                for corr, conf, time, con, sug, alg_val, pred_conf, pred, real, P_hat, P, F_hat, F in \
+                        zip(match_seqs[matcher], conf_seqs[matcher],
+                            time_seqs[matcher], consensus_seqs[matcher],
+                            sug_seqs[matcher], alg_seqs[matcher],
+                            new_conf_seqs[('deep ' + alg, matcher)], pred_seqs[('deep ' + alg, matcher)],
+                            acc_seqs[matcher], P_pred_seqs[('deep ' + alg, matcher)], P_seqs[matcher],
+                            F_pred_seqs[('deep ' + alg, matcher)], F_seqs[matcher]):
+                    df.loc[row_i] = np.array(
+                        ['deep ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real, P_hat, P,
+                         F_hat, F])
                     row_i += 1
                 for clf_name, clf in classifiers:
                     Y_hat = clf.predict(X)
-                    pred_seqs[(clf_name + ' ' + alg, matcher)] = Y_hat
-                    for corr, conf, time, con, sug, alg_val, pred, real in zip(match_seqs[matcher], conf_seqs[matcher],
-                                                                               time_seqs[matcher], consensus_seqs[matcher],
-                                                                               sug_seqs[matcher], alg_seqs[matcher],
-                                                                               pred_seqs[(clf_name + ' ' + alg, matcher)],
-                                                                               acc_seqs[matcher]):
-                        df.loc[row_i] = np.array([clf_name + ' ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred, real])
-                        row_i += 1
+                    Y_conf = clf.predict_proba(X)[:, 1]
+                    for reg_name, regP, regF in regressors:
+                        P_hat = regP.predict(X)
+                        F_hat = regF.predict(X)
+                        pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)] = Y_hat
+                        new_conf_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)] = Y_conf
+                        P_pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)] = P_hat
+                        F_pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)] = F_hat
+                        for corr, conf, time, con, sug, alg_val, pred_conf, pred, real, p_hat, p, f_hat, f in \
+                                zip(match_seqs[matcher],
+                                    conf_seqs[matcher],
+                                    time_seqs[matcher],
+                                    consensus_seqs[matcher],
+                                    sug_seqs[matcher],
+                                    alg_seqs[matcher],
+                                    new_conf_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
+                                    pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
+                                    acc_seqs[matcher],
+                                    P_pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
+                                    P_seqs[matcher],
+                                    F_pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
+                                    F_seqs[matcher]):
+                            df.loc[row_i] = np.array(
+                                [clf_name + ' ' + reg_name + ' ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real,
+                                 p_hat, p, f_hat, f])
+                            row_i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 df.to_csv('res/raw_' + st + '.csv')
 
@@ -220,15 +268,15 @@ for alg in algs:
                              & (df['pred'] == df['real'])
                              & (df['real'] == 1)])
         sum_answered = len(df[(df['alg'] == alg)
-                             & (df['matcher'] == matcher)
-                             & (df['pred'] == 1)])
+                              & (df['matcher'] == matcher)
+                              & (df['pred'] == 1)])
         res.loc[row_i] = np.array([alg,
                                    matcher,
-                                   sum_correct/sum_answered if sum_answered > 0 else 0.0,
-                                   sum_correct/all_correct])
+                                   sum_correct / sum_answered if sum_answered > 0 else 0.0,
+                                   sum_correct / all_correct])
         row_i += 1
 
 res.to_csv('res/eval_' + st + '.csv')
 
-res[['P','R']]=res[['P','R']].astype(float)
-pd.DataFrame(res.groupby('alg')[['P','R']].mean()).to_csv('res/sum_' + st + '.csv')
+res[['P', 'R']] = res[['P', 'R']].astype(float)
+pd.DataFrame(res.groupby('alg')[['P', 'R']].mean()).to_csv('res/sum_' + st + '.csv')

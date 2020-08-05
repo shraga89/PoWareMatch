@@ -157,6 +157,19 @@ class Evaluator:
                 accs += [0.0, ]
         return accs
 
+    def getEvalSeq(self, match_seq, accs_seq, E):
+        evals = list()
+        for t in range(len(match_seq)):
+            match_t = list(zip(match_seq[:t], accs_seq[:t]))
+            P = self.evaluate(match_t)[0]
+            R = self.evaluate(match_t)[1]
+            F = (2*P*R)/(P+R) if (P+R)>0 else 0
+            if E=="P":
+                evals += [P, ]
+            else:
+                evals += [F, ]
+        return evals
+
     def evaluate(self, match, k=None):
         match_set = [c[0] for c in match]
         if len(match_set) < 1:
