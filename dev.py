@@ -96,11 +96,11 @@ def algs_seq(match_seq, alg_matches, alg='all'):
 
 
 matchers_full = listdir(str(dir + 'ExperimentData/'))
-print(sorted(matchers_full))
 matchers = []
 for m in matchers_full:
     if path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
         matchers += [m]
+print(sorted(matchers))
 print('found ', len(matchers), ' matchers')
 sys.stdout.flush()
 matchers_ids = dict(enumerate(matchers))
