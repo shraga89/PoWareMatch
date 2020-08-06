@@ -100,7 +100,8 @@ matchers = []
 for m in matchers_full:
     if path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
         matchers += [m]
-print(sorted(matchers))
+    else:
+        print(m, listdir(str(dir + 'ExperimentData/' + m)))
 print('found ', len(matchers), ' matchers')
 sys.stdout.flush()
 matchers_ids = dict(enumerate(matchers))
