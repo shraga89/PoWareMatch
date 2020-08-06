@@ -30,32 +30,32 @@ seq_len = 5
 names = [
         # "Nearest Neighbors",
          # "Linear SVM",
-         "RBF SVM",
-         "Gaussian Process",
+         # "RBF SVM",
+         # "Gaussian Process",
          # "Decision Tree",
-         "Random Forest",
-         "Neural Net",
-         "AdaBoost",
+         # "Random Forest",
+         "Neural Net"
+         # "AdaBoost",
          # "Naive Bayes"
          ]
 clfs = [
     # KNeighborsClassifier(3),
     # SVC(kernel="linear", C=0.025, probability=True),
-    SVC(gamma=2, C=1, probability=True),
-    GaussianProcessClassifier(1.0 * RBF(1.0)),
+    # SVC(gamma=2, C=1, probability=True),
+    # GaussianProcessClassifier(1.0 * RBF(1.0)),
     # DecisionTreeClassifier(max_depth=5),
-    RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    MLPClassifier(alpha=1, max_iter=1000),
-    AdaBoostClassifier()
+    # RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    MLPClassifier(alpha=1, max_iter=1000)
+    # AdaBoostClassifier()
     # GaussianNB()
 ]
 classifiers = list(zip(names, clfs))
 
 regressors = [
-    ('SVM', svm.SVR(), svm.SVR()),
-    ('SGD Regression', linear_model.SGDRegressor(), linear_model.SGDRegressor()),
-    ('Bayesian Ridge Regression', linear_model.BayesianRidge(), linear_model.BayesianRidge()),
-    ('Lasso Regression', linear_model.LassoLars(), linear_model.LassoLars())
+    ('SVM', svm.SVR(), svm.SVR())
+    # ('SGD Regression', linear_model.SGDRegressor(), linear_model.SGDRegressor()),
+    # ('Bayesian Ridge Regression', linear_model.BayesianRidge(), linear_model.BayesianRidge()),
+    # ('Lasso Regression', linear_model.LassoLars(), linear_model.LassoLars())
     # ('Passive Aggressive Regression', linear_model.PassiveAggressiveRegressor()),
     # ('Theil-Sen Regression', linear_model.TheilSenRegressor()),
     # ('Linear Regression', linear_model.LinearRegression())
