@@ -98,7 +98,8 @@ def algs_seq(match_seq, alg_matches, alg='all'):
 matchers_full = listdir(str(dir + 'ExperimentData/'))
 matchers = []
 for m in matchers_full:
-    if path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
+    if (path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') or
+        path.exists(dir + 'ExperimentData/' + m + '/EXCEL- CIDX/report.log')) and m not in groups['ones']:
         matchers += [m]
     elif m not in groups['ones']:
         print(m, listdir(str(dir + 'ExperimentData/' + m + '/Excel - CIDX')))
@@ -252,7 +253,8 @@ for alg in list(alg_matches.keys()) + ['all']:
                                     F_pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
                                     F_seqs[matcher]):
                             df.loc[row_i] = np.array(
-                                [clf_name + ' ' + reg_name + ' ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real,
+                                [clf_name + ' ' + reg_name + ' ' + alg, matcher, corr, conf, time, con, sug, alg_val,
+                                 pred_conf, pred, real,
                                  p_hat, p, f_hat, f])
                             row_i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
