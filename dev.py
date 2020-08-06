@@ -99,7 +99,7 @@ matchers_full = listdir(str(dir + 'ExperimentData/'))
 matchers = []
 for m in matchers_full:
     if (path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') or
-        path.exists(dir + 'ExperimentData/' + m + '/EXCEL- CIDX/report.log')) and m not in groups['ones']:
+        path.exists(dir + 'ExperimentData/' + m + '/EXCEL - CIDX/report.log')) and m not in groups['ones']:
         matchers += [m]
     elif m not in groups['ones']:
         print(m, listdir(str(dir + 'ExperimentData/' + m)))
