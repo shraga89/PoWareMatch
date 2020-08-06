@@ -98,8 +98,6 @@ def algs_seq(match_seq, alg_matches, alg='all'):
 matchers_full = listdir(str(dir + 'ExperimentData/'))
 matchers = []
 for m in matchers_full:
-    if path.exists(dir + 'ExperimentData/' + m + '/EXCEL - CIDX/report.log'):
-        os.rename(dir + 'ExperimentData/' + m + '/EXCEL - CIDX', dir + 'ExperimentData/' + m + '/Excel - CIDX')
     if path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
         matchers += [m]
     elif m not in groups['ones']:
