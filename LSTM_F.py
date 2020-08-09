@@ -8,7 +8,7 @@ torch.manual_seed(1)
 class LSTM_F(nn.Module):
 
     def __init__(self, input_dim, hidden_dim, tagset_size, device):
-        super(LSTM_P, self).__init__()
+        super(LSTM_F, self).__init__()
         self.hidden_dim = hidden_dim
         self.lstm = nn.LSTM(input_dim, hidden_dim, bidirectional=True)
         self.hidden2tagF = nn.Linear(hidden_dim * 2, 1)
