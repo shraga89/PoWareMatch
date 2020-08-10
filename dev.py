@@ -1,7 +1,8 @@
 from os import listdir, path
 from sklearn.model_selection import KFold
 import pandas as pd
-import random, time, datetime, sys
+import random, datetime, sys
+import time as systime
 import HHandler as HH
 import Evaluator as E
 from config import *
@@ -147,11 +148,14 @@ for matcher in matchers:
     P_seqs[matcher] = evaluator.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "P")  # new
     F_seqs[matcher] = evaluator.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "F")  # new
     matches[matcher] = match
-ts = time.time()
+ts = systime.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 print(st)
 matches_train = {}
-for alg in list(alg_matches.keys()) + ['all']:
+algs = list(alg_matches.keys()) + ['all']
+
+# algs = algs[:2]
+for alg in algs:
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
     if alg == 'all':
@@ -164,6 +168,7 @@ for alg in list(alg_matches.keys()) + ['all']:
         test = [matchers_ids[m] for m in testset]
         train = [matchers_ids[m] for m in trainset]
         matches_train = {k: matches[k] for k in matches if k in train}
+        ts = systime.time()
         st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
         print("Starting fold " + str(i) + ' ' + str(st))
         i += 1
@@ -184,7 +189,8 @@ for alg in list(alg_matches.keys()) + ['all']:
                 P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float).view(-1, 1)  # new
                 F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float).view(-1, 1)  # new
                 model.zero_grad()
-                _, Y_hat, P_hat, F_hat = model(X)
+                # _, Y_hat, P_hat, F_hat = model(X)
+                Y_hat, P_hat, F_hat = model(X)
                 loss1 = crossEntropy(Y_hat, Y)  # new
                 loss2 = mse(P_hat, P)  # new
                 loss3 = mse(F_hat, F)  # new
@@ -211,8 +217,9 @@ for alg in list(alg_matches.keys()) + ['all']:
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
                 P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float)  # new
                 F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float)  # new
-                Y_conf, Y_hat, P_hat, F_hat = model(X)
-                new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_conf, dtype=torch.float).tolist()
+                # Y_conf, Y_hat, P_hat, F_hat = model(X)
+                Y_hat, P_hat, F_hat = model(X)
+                new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_hat[:, 1], dtype=torch.float).tolist()
                 pred_seqs[('deep ' + alg, matcher)] = torch.tensor(torch.max(Y_hat, 1)[1], dtype=torch.float).tolist()
                 P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat[0], dtype=torch.float).tolist()
                 F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat[0], dtype=torch.float).tolist()
@@ -256,6 +263,7 @@ for alg in list(alg_matches.keys()) + ['all']:
                                  pred_conf, pred, real,
                                  p_hat, p, f_hat, f])
                             row_i += 1
+ts = systime.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 df.to_csv('res/raw_' + st + '.csv')
 

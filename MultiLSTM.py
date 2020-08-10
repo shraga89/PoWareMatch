@@ -19,8 +19,10 @@ class LSTMNet(nn.Module):
         # embeds = self.word_embeddings(sentence)
         lstm_out, _ = self.lstm(input.view(len(input), 1, -1))
         tag = self.hidden2tag(lstm_out.view(len(input), -1))
-        tag_scores = F.log_softmax(tag, dim=1)
-        tag_conf = F.softmax(tag, dim=1)[:, 1]
+        # tag_scores = F.log_softmax(tag, dim=1)
+        tag_scores = F.softmax(tag, dim=1)
+        # tag_conf = F.softmax(tag, dim=1)[:, 1]
         tag_P = torch.sigmoid(self.hidden2tagP(lstm_out.view(len(input), -1)))
         tag_F = torch.sigmoid(self.hidden2tagF(lstm_out.view(len(input), -1)))
-        return tag_conf, tag_scores, tag_P, tag_F
+        # return tag_conf, tag_scores, tag_P, tag_F
+        return tag_scores, tag_P, tag_F
