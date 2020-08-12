@@ -193,7 +193,8 @@ for alg in list(alg_matches.keys()) + ['all']:
                 model_y.zero_grad()
                 model_p.zero_grad()
                 model_f.zero_grad()
-                _, Y_hat = model_y(X)
+                # _, Y_hat = model_y(X)
+                Y_hat = model_y(X)
                 P_hat = model_p(X)
                 F_hat = model_f(X)
                 loss_y = crossEntropy(Y_hat, Y)  # new
@@ -202,8 +203,6 @@ for alg in list(alg_matches.keys()) + ['all']:
                 loss_y.backward()  # new
                 loss_p.backward()  # new
                 loss_f.backward()  # new
-                # loss = loss1 + loss2 + loss3  # new
-                # loss.backward()  # new
                 optimizer_y.step()
                 optimizer_p.step()
                 optimizer_f.step()
@@ -227,11 +226,10 @@ for alg in list(alg_matches.keys()) + ['all']:
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
                 P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float)  # new
                 F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float)  # new
-                # Y_conf, Y_hat, P_hat, F_hat = model(X)
-                Y_conf, Y_hat = model_y(X)
+                Y_hat = model_y(X)
                 P_hat = model_p(X)
                 F_hat = model_f(X)
-                new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_conf, dtype=torch.float).tolist()
+                new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_hat[:, 1], dtype=torch.float).tolist()
                 pred_seqs[('deep ' + alg, matcher)] = torch.tensor(torch.max(Y_hat, 1)[1], dtype=torch.float).tolist()
                 P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat[0], dtype=torch.float).tolist()
                 F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat[0], dtype=torch.float).tolist()
