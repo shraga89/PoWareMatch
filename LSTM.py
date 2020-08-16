@@ -18,6 +18,7 @@ class LSTMNet(nn.Module):
         # embeds = self.word_embeddings(sentence)
         lstm_out, _ = self.lstm(input.view(len(input), 1, -1))
         tag_space = self.hidden2tag(lstm_out.view(len(input), -1))
-        tag_scores = F.log_softmax(tag_space, dim=1)
+        # tag_scores = F.log_softmax(tag_space, dim=1)
+        tag_scores = F.softmax(tag_space, dim=1)
         return tag_scores
 
