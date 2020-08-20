@@ -160,14 +160,14 @@ for alg in list(alg_matches.keys()) + ['all']:
         seq_len = 16
     # model = LSTMNet(seq_len, HIDDEN_DIM, target_len, device)
     model_y = LSTM_Y(seq_len, HIDDEN_DIM, target_len, device)
-    # model_p = LSTM_P(seq_len, HIDDEN_DIM, target_len, device)
-    # model_f = LSTM_F(seq_len, HIDDEN_DIM, target_len, device)
+    model_p = LSTM_P(seq_len, HIDDEN_DIM, target_len, device)
+    model_f = LSTM_F(seq_len, HIDDEN_DIM, target_len, device)
     crossEntropy = nn.NLLLoss()
-    # mse1 = nn.MSELoss()
-    # mse2 = nn.MSELoss()
+    mse1 = nn.MSELoss()
+    mse2 = nn.MSELoss()
     optimizer_y = optim.SGD(model_y.parameters(), lr=0.1)
-    # optimizer_p = optim.SGD(model_p.parameters(), lr=0.1)
-    # optimizer_f = optim.SGD(model_f.parameters(), lr=0.1)
+    optimizer_p = optim.SGD(model_p.parameters(), lr=0.1)
+    optimizer_f = optim.SGD(model_f.parameters(), lr=0.1)
     i = 1
     for trainset, testset in kfold.split(matchers):
         test = [matchers_ids[m] for m in testset]
@@ -189,24 +189,26 @@ for alg in list(alg_matches.keys()) + ['all']:
                                                          alg_seqs[matcher]],
                                                         alg == 'all')),
                                  dtype=torch.float)
+                X_p = X.clone()
+                X_f = X.clone()
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
                 P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float).view(-1, 1)  # new
                 F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float).view(-1, 1)  # new
                 model_y.zero_grad()
-                # model_p.zero_grad()
-                # model_f.zero_grad()
+                model_p.zero_grad()
+                model_f.zero_grad()
                 Y_hat = model_y(X)
-                # P_hat = model_p(X)
-                # F_hat = model_f(X)
+                P_hat = model_p(X_p)
+                F_hat = model_f(X_f)
                 loss_y = crossEntropy(Y_hat, Y)  # new
                 loss_y.backward()  # new
                 optimizer_y.step()
-                # loss_p = mse1(P_hat, P)  # new
-                # loss_p.backward()  # new
-                # optimizer_p.step()
-                # loss_f = mse2(F_hat, F)  # new
-                # loss_f.backward()  # new
-                # optimizer_f.step()
+                loss_p = mse1(P_hat, P)  # new
+                loss_p.backward()  # new
+                optimizer_p.step()
+                loss_f = mse2(F_hat, F)  # new
+                loss_f.backward()  # new
+                optimizer_f.step()
                 for clf_name, clf in classifiers:
                     if len(list(np.unique(Y))) != 1:
                         clf.fit(X=X, y=Y)
@@ -224,35 +226,37 @@ for alg in list(alg_matches.keys()) + ['all']:
                                                          alg_seqs[matcher]],
                                                         alg == 'all')),
                                  dtype=torch.float)
+                X_p = X.clone()
+                X_f = X.clone()
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
                 P = torch.tensor(list(P_seqs[matcher]), dtype=torch.float)  # new
                 F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float)  # new
                 Y_hat = model_y(X)
-                # P_hat = model_p(X)
-                # F_hat = model_f(X)
+                P_hat = model_p(X_p)
+                F_hat = model_f(X_f)
                 new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_hat[:, 1], dtype=torch.float).tolist()
                 pred_seqs[('deep ' + alg, matcher)] = torch.tensor(torch.max(Y_hat, 1)[1], dtype=torch.float).tolist()
-                # P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat[0], dtype=torch.float).tolist()
-                # F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat[0], dtype=torch.float).tolist()
-                # for corr, conf, time, con, sug, alg_val, pred_conf, pred, real, P_hat, P, F_hat, F in \
-                #         zip(match_seqs[matcher], conf_seqs[matcher],
-                #             time_seqs[matcher], consensus_seqs[matcher],
-                #             sug_seqs[matcher], alg_seqs[matcher],
-                #             new_conf_seqs[('deep ' + alg, matcher)], pred_seqs[('deep ' + alg, matcher)],
-                #             acc_seqs[matcher], P_pred_seqs[('deep ' + alg, matcher)], P_seqs[matcher],
-                #             F_pred_seqs[('deep ' + alg, matcher)], F_seqs[matcher]):
-                #     df.loc[row_i] = np.array(
-                #         ['deep ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real, P_hat, P,
-                #          F_hat, F])
-                for corr, conf, time, con, sug, alg_val, pred_conf, pred, real in \
+                P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat[0], dtype=torch.float).tolist()
+                F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat[0], dtype=torch.float).tolist()
+                for corr, conf, time, con, sug, alg_val, pred_conf, pred, real, P_hat, P, F_hat, F in \
                         zip(match_seqs[matcher], conf_seqs[matcher],
                             time_seqs[matcher], consensus_seqs[matcher],
                             sug_seqs[matcher], alg_seqs[matcher],
                             new_conf_seqs[('deep ' + alg, matcher)], pred_seqs[('deep ' + alg, matcher)],
-                            acc_seqs[matcher]):
+                            acc_seqs[matcher], P_pred_seqs[('deep ' + alg, matcher)], P_seqs[matcher],
+                            F_pred_seqs[('deep ' + alg, matcher)], F_seqs[matcher]):
                     df.loc[row_i] = np.array(
-                        ['deep ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real, '', '', '',
-                         ''])
+                        ['deep ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real, P_hat, P,
+                         F_hat, F])
+                # for corr, conf, time, con, sug, alg_val, pred_conf, pred, real in \
+                #         zip(match_seqs[matcher], conf_seqs[matcher],
+                #             time_seqs[matcher], consensus_seqs[matcher],
+                #             sug_seqs[matcher], alg_seqs[matcher],
+                #             new_conf_seqs[('deep ' + alg, matcher)], pred_seqs[('deep ' + alg, matcher)],
+                #             acc_seqs[matcher]):
+                #     df.loc[row_i] = np.array(
+                #         ['deep ' + alg, matcher, corr, conf, time, con, sug, alg_val, pred_conf, pred, real, '', '', '',
+                #          ''])
                     row_i += 1
                 for clf_name, clf in classifiers:
                     Y_hat = clf.predict(X)
