@@ -217,8 +217,8 @@ for alg in list(alg_matches.keys()) + ['all']:
                 F = torch.tensor(list(F_seqs[matcher]), dtype=torch.float)  # new
                 P_hat = model_p(X_p)
                 F_hat = model_f(X_f)
-                P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat[0], dtype=torch.float).tolist()
-                F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat[0], dtype=torch.float).tolist()
+                P_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(P_hat, dtype=torch.float).tolist()
+                F_pred_seqs[('deep ' + alg, matcher)] = torch.tensor(F_hat, dtype=torch.float).tolist()
                 for corr, conf, time, con, sug, alg_val, P_hat, P, F_hat, F in \
                         zip(match_seqs[matcher], conf_seqs[matcher],
                             time_seqs[matcher], consensus_seqs[matcher],
