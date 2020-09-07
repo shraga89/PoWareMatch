@@ -227,8 +227,8 @@ for alg in list(alg_matches.keys()) + ['all']:
                                 consensus_seqs[matcher],
                                 sug_seqs[matcher],
                                 alg_seqs[matcher],
-                                new_conf_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
-                                pred_seqs[(clf_name + ' ' + reg_name + ' ' + alg, matcher)],
+                                new_conf_seqs[(clf_name + ' ' + alg, matcher)],
+                                pred_seqs[(clf_name + ' ' + alg, matcher)],
                                 acc_seqs[matcher]):
                         df.loc[row_i] = np.array(
                             [clf_name + ' ' + alg, matcher, corr, conf, time, con, sug, alg_val,
