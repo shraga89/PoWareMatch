@@ -250,7 +250,7 @@ for alg in list(alg_matches.keys()) + ['all']:
                              p_hat, p, f_hat, f])
                         row_i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
-df.to_csv('res/raw_' + st + '.csv')
+df.to_csv('res/eval_raw_' + st + '.csv')
 
 # matchers = df['matcher'].unique().tolist()
 # algs = df['alg'].unique().tolist()
