@@ -154,8 +154,9 @@ matches_train = {}
 for alg in list(alg_matches.keys()) + ['all']:
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
+    seq_len = 3
     if alg == 'all':
-        seq_len = 15
+        seq_len = 14
     model_p = LSTM_P(seq_len, HIDDEN_DIM, target_len, device)
     model_f = LSTM_F(seq_len, HIDDEN_DIM, target_len, device)
     mse1 = nn.MSELoss()
@@ -176,8 +177,7 @@ for alg in list(alg_matches.keys()) + ['all']:
             for matcher in train:
                 consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
                 alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
-                X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
-                                                         time_seqs[matcher],
+                X = torch.tensor(list(build_feature_seq([time_seqs[matcher],
                                                          consensus_seqs[matcher],
                                                          alg_seqs[matcher]],
                                                         alg == 'all')),
@@ -203,8 +203,7 @@ for alg in list(alg_matches.keys()) + ['all']:
             for matcher in test:
                 consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
                 alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
-                X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
-                                                         time_seqs[matcher],
+                X = torch.tensor(list(build_feature_seq([time_seqs[matcher],
                                                          consensus_seqs[matcher],
                                                          alg_seqs[matcher]],
                                                         alg == 'all')),
@@ -248,7 +247,7 @@ for alg in list(alg_matches.keys()) + ['all']:
                              p_hat, p, f_hat, f])
                         row_i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
-df.to_csv('res/eval_raw_' + st + '.csv')
+df.to_csv('res/eval_no_conf_raw_' + st + '.csv')
 
 # matchers = df['matcher'].unique().tolist()
 # algs = df['alg'].unique().tolist()

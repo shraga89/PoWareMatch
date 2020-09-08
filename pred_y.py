@@ -157,7 +157,7 @@ for alg in list(alg_matches.keys()) + ['all']:
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
     if alg == 'all':
-        seq_len = 16
+        seq_len = 15
     model_y = LSTM_Y(seq_len, HIDDEN_DIM, target_len, device)
     crossEntropy = nn.NLLLoss()
     optimizer_y = optim.SGD(model_y.parameters(), lr=0.1)
@@ -178,7 +178,6 @@ for alg in list(alg_matches.keys()) + ['all']:
                 X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
                                                          time_seqs[matcher],
                                                          consensus_seqs[matcher],
-                                                         sug_seqs[matcher],
                                                          alg_seqs[matcher]],
                                                         alg == 'all')),
                                  dtype=torch.float)
@@ -198,7 +197,6 @@ for alg in list(alg_matches.keys()) + ['all']:
                 X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
                                                          time_seqs[matcher],
                                                          consensus_seqs[matcher],
-                                                         sug_seqs[matcher],
                                                          alg_seqs[matcher]],
                                                         alg == 'all')),
                                  dtype=torch.float)

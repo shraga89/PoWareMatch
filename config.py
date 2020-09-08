@@ -24,7 +24,7 @@ max_subs = 50
 jumps = 10
 HIDDEN_DIM = 64
 target_len = 2
-seq_len = 5
+seq_len = 4
 
 
 names = [
