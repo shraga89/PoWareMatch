@@ -151,7 +151,7 @@ ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 print(st)
 matches_train = {}
-for alg in list(alg_matches.keys()) + ['all']:
+for alg in list(alg_matches.keys()):
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
     if alg == 'all':
