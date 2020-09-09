@@ -15,7 +15,7 @@ import os
 
 dir = './'
 epochs = 10
-# epochs = 10
+# epochs = 1
 # testset_size = 2
 folds = 5
 # folds = 2
