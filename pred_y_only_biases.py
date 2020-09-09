@@ -108,7 +108,7 @@ print('found ', len(matchers), ' matchers')
 sys.stdout.flush()
 matchers_ids = dict(enumerate(matchers))
 
-matchers = matchers[:5]
+# matchers = matchers[:5]
 
 evaluator = E.Evaluator()
 quality = {}
