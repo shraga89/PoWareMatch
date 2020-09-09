@@ -141,8 +141,8 @@ print('found ', len(matchers_OA), ' ontology matchers')
 sys.stdout.flush()
 matchers_ids_OA = dict(enumerate(matchers_OA))
 
-matchers_SM = matchers_SM[:5]
-matchers_OA = matchers_OA[:5]
+# matchers_SM = matchers_SM[:5]
+# matchers_OA = matchers_OA[:5]
 
 evaluator_SM = E.Evaluator()
 evaluator_OA = E_onto.Evaluator()

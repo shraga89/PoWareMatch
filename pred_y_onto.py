@@ -87,7 +87,18 @@ def create_algs_dict_OA():
     for alg in list(algs.columns):
         if alg in ['candName', 'targName']: continue
         temp = algs[['candName', 'targName', alg]].values.tolist()
-        alg_matches[alg] = {(val[1], val[0]): val[2] for val in temp}
+        # alg_matches[alg] = {(val[1], val[0]): val[2] for val in temp}
+        alg_matches[alg] = {}
+        for val in temp:
+            if 'foaf:' in val[0] or 'foaf:' in val[1]:
+                continue
+            val_0 = val[0].split('.')[-1].replace('"', '').replace('@en', '').replace(' ', '').lower()
+            if 'name of an entity' in val[0]:
+                val_0 = val[0].split('.')[-2].replace('"', '').replace('@en', '').replace(' ', '').lower()
+            val_1 = val[1].split('.')[-1].replace('"', '').replace('@en', '').replace(' ', '').lower()
+            if 'name of an entity' in val[1]:
+                val_1 = val[1].split('.')[-2].replace('"', '').replace('@en', '').replace(' ', '').lower()
+            alg_matches[alg][(val_1, val_0)] = val[2]
     return alg_matches
 
 
