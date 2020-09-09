@@ -104,9 +104,7 @@ def algs_seq(match_seq, alg_matches, alg='all'):
     alg_seq = []
     if alg != 'all':
         alg_match = alg_matches[alg]
-        print(alg_match)
         for m in match_seq:
-            print(m)
             sim = alg_match[m] if m in alg_match else 0
             alg_seq += [sim, ]
     else:
