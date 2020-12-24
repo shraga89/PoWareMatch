@@ -1,17 +1,16 @@
 from os import listdir, path
 from sklearn.model_selection import KFold
 import pandas as pd
-import random, datetime, sys
+import datetime, sys
 import time as systime
 import HHandler as HH
 import Evaluator as E
 from config import *
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 # from LSTM import LSTMNet
-from MultiLSTM import LSTMNet  # new
+from Nets.MultiLSTM import LSTMNet  # new
 import numpy as np
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"

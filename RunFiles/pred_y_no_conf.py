@@ -1,18 +1,15 @@
 from os import listdir, path
 from sklearn.model_selection import KFold
 import pandas as pd
-import random, time, datetime, sys
+import time, datetime, sys
 import HHandler as HH
 import Evaluator as E
 from config import *
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 # from LSTM import LSTMNet
-from LSTM_Y import LSTM_Y
-from LSTM_P import LSTM_P
-from LSTM_F import LSTM_F
+from Nets.LSTM_Y import LSTM_Y
 import numpy as np
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
@@ -153,12 +150,12 @@ ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 print(st)
 matches_train = {}
-for alg in list(alg_matches.keys())[:1]:
+for alg in list(alg_matches.keys()):
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
+    seq_len = 3
     if alg == 'all':
-        seq_len = 16
-    seq_len = 1
+        seq_len = 14
     model_y = LSTM_Y(seq_len, HIDDEN_DIM, target_len, device)
     crossEntropy = nn.NLLLoss()
     optimizer_y = optim.SGD(model_y.parameters(), lr=0.1)
@@ -176,7 +173,11 @@ for alg in list(alg_matches.keys())[:1]:
             for matcher in train:
                 consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
                 alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
-                X = torch.tensor(list(build_feature_seq([conf_seqs[matcher]], alg == 'all')), dtype=torch.float)
+                X = torch.tensor(list(build_feature_seq([time_seqs[matcher],
+                                                         consensus_seqs[matcher],
+                                                         alg_seqs[matcher]],
+                                                        alg == 'all')),
+                                 dtype=torch.float)
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
                 model_y.zero_grad()
                 Y_hat = model_y(X)
@@ -190,7 +191,11 @@ for alg in list(alg_matches.keys())[:1]:
             for matcher in test:
                 consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
                 alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
-                X = torch.tensor(list(build_feature_seq([conf_seqs[matcher]], alg == 'all')), dtype=torch.float)
+                X = torch.tensor(list(build_feature_seq([time_seqs[matcher],
+                                                         consensus_seqs[matcher],
+                                                         alg_seqs[matcher]],
+                                                        alg == 'all')),
+                                 dtype=torch.float)
                 Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
                 Y_hat = model_y(X)
                 new_conf_seqs[('deep ' + alg, matcher)] = torch.tensor(Y_hat[:, 1], dtype=torch.float).tolist()
@@ -224,7 +229,7 @@ for alg in list(alg_matches.keys())[:1]:
                              pred_conf, pred, real])
                         row_i += 1
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
-df.to_csv('res/y_only_conf_raw_' + st + '.csv')
+df.to_csv('res/y_no_conf_raw_' + st + '.csv')
 
 # matchers = df['matcher'].unique().tolist()
 # algs = df['alg'].unique().tolist()

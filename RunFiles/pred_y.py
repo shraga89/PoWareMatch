@@ -1,20 +1,15 @@
 from os import listdir, path
 from sklearn.model_selection import KFold
 import pandas as pd
-import random, time, datetime, sys
+import time, datetime, sys
 import HHandler as HH
-import HHandler_onto as HH_onto
 import Evaluator as E
-import Evaluator_onto as E_onto
 from config import *
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 # from LSTM import LSTMNet
-from LSTM_Y import LSTM_Y
-from LSTM_P import LSTM_P
-from LSTM_F import LSTM_F
+from Nets.LSTM_Y import LSTM_Y
 import numpy as np
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
@@ -71,34 +66,14 @@ def build_feature_seq(seqs, is_multi_algs=False):
 #     sugs['with'] += list(df[df['group'] == 2])
 #     return sugs
 
-def create_algs_dict_SM():
+
+def create_algs_dict():
     alg_matches = {}
     algs = pd.read_csv(str(dir + 'algs.csv'))
     for alg in list(algs.columns):
         if alg in ['candName', 'targName']: continue
         temp = algs[['candName', 'targName', alg]].values.tolist()
         alg_matches[alg] = {(val[1], val[0]): val[2] for val in temp}
-    return alg_matches
-
-
-def create_algs_dict_OA():
-    alg_matches = {}
-    algs = pd.read_csv(str(dir + 'algs_onto.csv'))
-    for alg in list(algs.columns):
-        if alg in ['candName', 'targName']: continue
-        temp = algs[['candName', 'targName', alg]].values.tolist()
-        # alg_matches[alg] = {(val[1], val[0]): val[2] for val in temp}
-        alg_matches[alg] = {}
-        for val in temp:
-            if 'foaf:' in val[0] or 'foaf:' in val[1]:
-                continue
-            val_0 = val[0].split('.')[-1].replace('"', '').replace('@en', '').replace(' ', '').lower()
-            if 'name of an entity' in val[0]:
-                val_0 = val[0].split('.')[-2].replace('"', '').replace('@en', '').replace(' ', '').lower()
-            val_1 = val[1].split('.')[-1].replace('"', '').replace('@en', '').replace(' ', '').lower()
-            if 'name of an entity' in val[1]:
-                val_1 = val[1].split('.')[-2].replace('"', '').replace('@en', '').replace(' ', '').lower()
-            alg_matches[alg][(val_1, val_0)] = val[2]
     return alg_matches
 
 
@@ -119,32 +94,20 @@ def algs_seq(match_seq, alg_matches, alg='all'):
     return alg_seq
 
 
-matchers_full_SM = listdir(str(dir + 'ExperimentData/'))
-matchers_SM = []
-for m in matchers_full_SM:
+matchers_full = listdir(str(dir + 'ExperimentData/'))
+matchers = []
+for m in matchers_full:
     if path.exists(dir + 'ExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
-        matchers_SM += [m]
+        matchers += [m]
     elif m not in groups['ones']:
         print(m, listdir(str(dir + 'ExperimentData/' + m)))
-print('found ', len(matchers_SM), ' schema matchers')
+print('found ', len(matchers), ' matchers')
 sys.stdout.flush()
-matchers_ids_SM = dict(enumerate(matchers_SM))
-
-matchers_full_OA = listdir(str(dir + 'ontoExperimentData/'))
-matchers_OA = []
-for m in matchers_full_OA:
-    if path.exists(dir + 'ontoExperimentData/' + m + '/Excel - CIDX/report.log') and m not in groups['ones']:
-        matchers_OA += [m]
-    elif m not in groups['ones']:
-        print(m, listdir(str(dir + 'ontoExperimentData/' + m)))
-print('found ', len(matchers_OA), ' ontology matchers')
-sys.stdout.flush()
-matchers_ids_OA = dict(enumerate(matchers_OA))
+matchers_ids = dict(enumerate(matchers))
 
 # matchers = matchers[:5]
 
-evaluator_SM = E.Evaluator()
-evaluator_OA = E_onto.Evaluator()
+evaluator = E.Evaluator()
 quality = {}
 features = {}
 match_seqs = {}
@@ -160,17 +123,17 @@ time_seqs = {}
 consensus_seqs = {}
 sug_seqs = {}
 alg_seqs = {}
-alg_matches_SM = create_algs_dict_SM()
-alg_matches_OA = create_algs_dict_OA()
+alg_matches = create_algs_dict()
 matches = {}
 matcher_count = 1
-matcher_number = len(matchers_SM) + len(matchers_OA) + 1
+matcher_number = len(matchers) + 1
 df = pd.DataFrame(columns=['alg', 'matcher', 'correspondence', 'conf', 'time', 'con', 'sug', 'alg_val',
                            'pred_conf', 'pred', 'real'])
-
-for matcher in matchers_SM:
+kfold = KFold(folds, True, 1)
+row_i = 1
+for matcher in matchers:
     matcher_count += 1
-    print('Schema Matcher Number', matcher)
+    print('Matcher Number', matcher)
     Hmatcher = HH.HHandler(matcher)
     match = Hmatcher.getMatch()
     match_seqs[matcher], conf_seqs[matcher], time_seqs[matcher] = Hmatcher.getSeqs()
@@ -178,34 +141,16 @@ for matcher in matchers_SM:
     if matcher in groups['without']:
         is_sug = 1
     sug_seqs[matcher] = len(match_seqs[matcher]) * [is_sug, ]
-    quality[matcher] = evaluator_SM.evaluate(match)
-    acc_seqs[matcher] = evaluator_SM.getCorrSeq(match_seqs[matcher])
-    P_seqs[matcher] = evaluator_SM.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "P")  # new
-    F_seqs[matcher] = evaluator_SM.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "F")  # new
+    quality[matcher] = evaluator.evaluate(match)
+    acc_seqs[matcher] = evaluator.getCorrSeq(match_seqs[matcher])
+    P_seqs[matcher] = evaluator.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "P")  # new
+    F_seqs[matcher] = evaluator.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "F")  # new
     matches[matcher] = match
-
-for matcher in matchers_OA:
-    matcher_count += 1
-    print('Ontology Matcher Number', matcher)
-    Hmatcher = HH_onto.HHandler(matcher)
-    match = Hmatcher.getMatch()
-    match_seqs[matcher], conf_seqs[matcher], time_seqs[matcher] = Hmatcher.getSeqs()
-    is_sug = 0
-    if matcher in groups['without']:
-        is_sug = 1
-    sug_seqs[matcher] = len(match_seqs[matcher]) * [is_sug, ]
-    quality[matcher] = evaluator_OA.evaluate(match)
-    acc_seqs[matcher] = evaluator_OA.getCorrSeq(match_seqs[matcher])
-    P_seqs[matcher] = evaluator_OA.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "P")  # new
-    F_seqs[matcher] = evaluator_OA.getEvalSeq(match_seqs[matcher], acc_seqs[matcher], "F")  # new
-    matches[matcher] = match
-
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
 print(st)
 matches_train = {}
-row_i = 1
-for alg in list(alg_matches_SM.keys()):
+for alg in list(alg_matches.keys()):
     print('Staring', alg, 'Experiment')
     sys.stdout.flush()
     if alg == 'all':
@@ -213,37 +158,39 @@ for alg in list(alg_matches_SM.keys()):
     model_y = LSTM_Y(seq_len, HIDDEN_DIM, target_len, device)
     crossEntropy = nn.NLLLoss()
     optimizer_y = optim.SGD(model_y.parameters(), lr=0.1)
-    train = matchers_SM
-    test = matchers_OA
-    matches_train = {k: matches[k] for k in matches if k in train}
-    matches_test = {k: matches[k] for k in matches if k in test}
-    st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
-    consensus_SM = bulid_consensus(matches_train)
-    consensus_OA = bulid_consensus(matches_test)
-    for e in range(epochs):
-        print("Starting epoch " + str(e + 1))
-        for matcher in train:
-            consensus_seqs[matcher] = bulid_consensus_seq(consensus_SM, match_seqs[matcher])
-            alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches_SM, alg)
-            X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
-                                                     time_seqs[matcher],
-                                                     consensus_seqs[matcher],
-                                                     alg_seqs[matcher]],
-                                                    alg == 'all')),
-                             dtype=torch.float)
-            Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
-            model_y.zero_grad()
-            Y_hat = model_y(X)
-            loss_y = crossEntropy(Y_hat, Y)
-            loss_y.backward()
-            optimizer_y.step()
-            for clf_name, clf in classifiers:
-                if len(list(np.unique(Y))) != 1:
-                    clf.fit(X=X, y=Y)
+    i = 1
+    for trainset, testset in kfold.split(matchers):
+        test = [matchers_ids[m] for m in testset]
+        train = [matchers_ids[m] for m in trainset]
+        matches_train = {k: matches[k] for k in matches if k in train}
+        st = datetime.datetime.fromtimestamp(ts).strftime('%d_%m_%Y_%H_%M')
+        print("Starting fold " + str(i) + ' ' + str(st))
+        i += 1
+        consensus = bulid_consensus(matches_train)
+        for e in range(epochs):
+            print("Starting epoch " + str(e + 1))
+            for matcher in train:
+                consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
+                alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
+                X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
+                                                         time_seqs[matcher],
+                                                         consensus_seqs[matcher],
+                                                         alg_seqs[matcher]],
+                                                        alg == 'all')),
+                                 dtype=torch.float)
+                Y = torch.tensor(list(acc_seqs[matcher]), dtype=torch.long)
+                model_y.zero_grad()
+                Y_hat = model_y(X)
+                loss_y = crossEntropy(Y_hat, Y)
+                loss_y.backward()
+                optimizer_y.step()
+                for clf_name, clf in classifiers:
+                    if len(list(np.unique(Y))) != 1:
+                        clf.fit(X=X, y=Y)
         with torch.no_grad():
             for matcher in test:
-                consensus_seqs[matcher] = bulid_consensus_seq(consensus_OA, match_seqs[matcher])
-                alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches_OA, alg)
+                consensus_seqs[matcher] = bulid_consensus_seq(consensus, match_seqs[matcher])
+                alg_seqs[matcher] = algs_seq(match_seqs[matcher], alg_matches, alg)
                 X = torch.tensor(list(build_feature_seq([conf_seqs[matcher],
                                                          time_seqs[matcher],
                                                          consensus_seqs[matcher],
