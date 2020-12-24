@@ -2,9 +2,8 @@ from os import listdir, path
 from sklearn.model_selection import KFold
 import pandas as pd
 import time, datetime, sys
-import HHandler as HH
-import Evaluator as E
-from config import *
+from Utils import Evaluator as E, HHandler as HH
+from RunFiles.config import *
 import torch
 import torch.nn as nn
 import torch.optim as optim

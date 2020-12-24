@@ -1,4 +1,4 @@
-import config as conf
+from RunFiles import config as conf
 from datetime import datetime
 from collections import OrderedDict
 
@@ -18,7 +18,7 @@ class HHandler:
         line_split = ''
         last_ai = ''
         last_time = 0.0
-        with open(self.dir + 'ontoExperimentData/' + self.matcherId + '/Excel - CIDX/report.log') as f:
+        with open(self.dir + 'ExperimentData/' + self.matcherId + '/Excel - CIDX/report.log') as f:
             for line in f.readlines():
                 last_line_split = line_split
                 line_split = line.split('|')
@@ -28,28 +28,9 @@ class HHandler:
                 if line_split[4] != 'matched':
                     continue
                 if len(last_line_split) < 5 or last_line_split[4] != 'matched':
-                    # last_ai = last_line_split[-1].replace('\n', '')
-                    last_ai = last_line_split[-1].replace('\n', '').split('.')[-1].replace('"','').replace('@en', '')\
-                        .replace(' ', '').lower()
+                    last_ai = last_line_split[-1].replace('\n', '')
                     last_time = datetime.strptime(last_line_split[0].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                # corr = tuple((last_ai, line_split[8]))
-                curr_ai = line_split[8].split('.')[-1].replace('"', '').replace('@en', '').replace(' ', '').lower()
-                if 'name of an entity' in line_split[8]:
-                    curr_ai = line_split[8].split('.')[-2].replace('"', '').replace('@en', '').replace(' ', '').lower()
-                elif 'foaf:' in line_split[8]:
-                    continue
-                # elif '@en' in line_split[-2]:
-                #     curr_ai = line_split[-2].split('.')[-1].replace('"', '').replace('@en', '').replace(' ', '').lower()
-                # else:
-                #     continue
-                corr = tuple((last_ai, curr_ai))
-                if last_ai == '':
-                    print('err1', last_line_split[-1].replace('\n', '').split('.'))
-                    continue
-                if curr_ai == '':
-                    print('err2', line_split[8].replace('\n', '').split('.'))
-                    print('err2', line_split[-2].replace('\n', '').split('.'))
-                    continue
+                corr = tuple((last_ai, line_split[8]))
                 elapsed_time = float((time - last_time).seconds)
                 if corr not in self.H:
                     self.H[corr] = []
@@ -85,6 +66,7 @@ class HHandler:
             new_id = matcher.zfill(3) + '_' + str(n).zfill(3) + '_' + str(i).zfill(4)
             submatchers[new_id] = HHandler(new_id, OrderedDict(submatcherslist[i]))
         return submatchers
+
 
     def extract_behavioural_features(self):
         count_distinct_corr = float(len(self.H.keys()))

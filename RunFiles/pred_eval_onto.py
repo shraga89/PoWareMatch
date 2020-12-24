@@ -1,11 +1,8 @@
 from os import listdir, path
 import pandas as pd
 import time, datetime, sys
-import HHandler as HH
-import HHandler_onto as HH_onto
-import Evaluator as E
-import Evaluator_onto as E_onto
-from config import *
+from Utils import Evaluator_onto as E_onto, Evaluator as E, HHandler as HH, HHandler_onto as HH_onto
+from RunFiles.config import *
 import torch
 import torch.nn as nn
 import torch.optim as optim

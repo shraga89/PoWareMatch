@@ -13,7 +13,7 @@ import os
 
 
 
-dir = './'
+dir = '../'
 epochs = 10
 # epochs = 1
 # testset_size = 2
