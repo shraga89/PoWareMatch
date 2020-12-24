@@ -1,0 +1,195 @@
+2018-12-19 13:55:32,836 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4627996133255557004|PO
+2018-12-19 13:55:53,546 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4627996133255557004|PO
+2018-12-19 13:55:58,961 | INFO  | [AWT-EventQueue-0] | |noMatch|4627996133255557004|PO (PO)|1.0
+2018-12-19 13:56:39,055 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6513188974744320728|PO.POHeader
+2018-12-19 13:59:59,039 | INFO  | [AWT-EventQueue-0] | |matched|6513188974744320728|POHeader (POHeader)|6170609831481582766|PurchaseOrder.Header|0.9
+2018-12-19 14:00:10,855 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3139746685778082569|PO.Contact
+2018-12-19 14:00:24,974 | INFO  | [AWT-EventQueue-0] | |matched|3139746685778082569|Contact (Contact)|8821271098577426188|PurchaseOrder.InvoiceTo.Contact|1.0
+2018-12-19 14:00:37,920 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7747171381638441170|PO.Contact.contactName
+2018-12-19 14:00:50,802 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:00:51,241 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3644049335822067954|PO.Contact.contactEmail
+2018-12-19 14:00:51,689 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3088479956669947793|PO.Contact.contactPhone
+2018-12-19 14:00:52,444 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7747171381638441170|PO.Contact.contactName
+2018-12-19 14:01:22,886 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3139746685778082569|PO.Contact
+2018-12-19 14:01:32,326 | INFO  | [AWT-EventQueue-0] | |matched|3139746685778082569|Contact (Contact)|8821271098577426188|PurchaseOrder.InvoiceTo.Contact|1.0
+2018-12-19 14:01:55,151 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7747171381638441170|PO.Contact.contactName
+2018-12-19 14:02:29,429 | INFO  | [AWT-EventQueue-0] | |matched|7747171381638441170|contactName (contactName)|2143336660163633139|PurchaseOrder.InvoiceTo.Contact.contactName|1.0
+2018-12-19 14:02:44,388 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3644049335822067954|PO.Contact.contactEmail
+2018-12-19 14:02:49,887 | INFO  | [AWT-EventQueue-0] | |matched|3644049335822067954|contactEmail (contactEmail)|676543846111270472|PurchaseOrder.InvoiceTo.Contact.e-mail|1.0
+2018-12-19 14:02:51,854 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7747171381638441170|PO.Contact.contactName
+2018-12-19 14:02:52,393 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3644049335822067954|PO.Contact.contactEmail
+2018-12-19 14:02:52,942 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:02:58,827 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3644049335822067954|PO.Contact.contactEmail
+2018-12-19 14:03:05,043 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3088479956669947793|PO.Contact.contactPhone
+2018-12-19 14:03:09,988 | INFO  | [AWT-EventQueue-0] | |matched|3088479956669947793|contactPhone (contactPhone)|7972350392964363807|PurchaseOrder.InvoiceTo.Contact.telephone|1.0
+2018-12-19 14:03:12,163 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:03:19,151 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:03:31,643 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3139746685778082569|PO.Contact
+2018-12-19 14:03:35,148 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6513188974744320728|PO.POHeader
+2018-12-19 14:03:36,752 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3139746685778082569|PO.Contact
+2018-12-19 14:04:00,317 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:04:07,851 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3139746685778082569|PO.Contact
+2018-12-19 14:04:09,224 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:04:13,019 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7747171381638441170|PO.Contact.contactName
+2018-12-19 14:04:13,367 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4405229548511135850|PO.Contact.contactFunctionCode
+2018-12-19 14:04:35,620 | INFO  | [AWT-EventQueue-0] | |matched|4405229548511135850|contactFunctionCode (contactFunctionCode)|4052384937450709562|PurchaseOrder.InvoiceTo.Contact.companyName|0.2
+2018-12-19 14:04:39,754 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6513188974744320728|PO.POHeader
+2018-12-19 14:06:00,712 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|2522660649032057142|PO.POHeader.poDate
+2018-12-19 14:06:18,313 | INFO  | [AWT-EventQueue-0] | |matched|2522660649032057142|poDate (poDate)|3216725315479224215|PurchaseOrder.Header.orderDate|1.0
+2018-12-19 14:06:22,772 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|2522660649032057142|PO.POHeader.poDate
+2018-12-19 14:06:24,064 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|35976298296163095|PO.POHeader.poNumber
+2018-12-19 14:06:33,474 | INFO  | [AWT-EventQueue-0] | |matched|35976298296163095|poNumber (poNumber)|3515932268664071086|PurchaseOrder.Header.orderNum|1.0
+2018-12-19 14:06:37,689 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3139746685778082569|PO.Contact
+2018-12-19 14:07:09,514 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4627996133255557004|PO
+2018-12-19 14:07:43,968 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:08:15,075 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6893031803402561286|PO.POShipTo.street1
+2018-12-19 14:08:20,251 | INFO  | [AWT-EventQueue-0] | |matched|6893031803402561286|street1 (street1)|4814801617920076274|PurchaseOrder.DeliverTo.Address.street1|1.0
+2018-12-19 14:08:22,558 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5402974588832905520|PO.POShipTo.street2
+2018-12-19 14:08:27,509 | INFO  | [AWT-EventQueue-0] | |matched|5402974588832905520|street2 (street2)|8196904580930816330|PurchaseOrder.DeliverTo.Address.street2|1.0
+2018-12-19 14:08:28,891 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|94159788077238107|PO.POShipTo.street4
+2018-12-19 14:08:29,477 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3630456679873179057|PO.POShipTo.street3
+2018-12-19 14:08:40,053 | INFO  | [AWT-EventQueue-0] | |matched|3630456679873179057|street3 (street3)|3978519264861858550|PurchaseOrder.DeliverTo.Address.street3|1.0
+2018-12-19 14:08:41,024 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|94159788077238107|PO.POShipTo.street4
+2018-12-19 14:08:45,151 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5587189939799213848|PO.POShipTo.postalCode
+2018-12-19 14:08:45,151 | INFO  | [AWT-EventQueue-0] | |matched|5587189939799213848|postalCode (postalCode)|6714931990036405540|PurchaseOrder.DeliverTo.Address.street4|1.0
+2018-12-19 14:08:49,616 | INFO  | [AWT-EventQueue-0] | |matched|5587189939799213848|postalCode (postalCode)|7682819717042178126|PurchaseOrder.DeliverTo.Address.postalCode|1.0
+2018-12-19 14:08:52,043 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|94159788077238107|PO.POShipTo.street4
+2018-12-19 14:08:56,856 | INFO  | [AWT-EventQueue-0] | |matched|94159788077238107|street4 (street4)|6714931990036405540|PurchaseOrder.DeliverTo.Address.street4|1.0
+2018-12-19 14:08:58,075 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:09:28,527 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4503766058960010330|PO.POShipTo.city
+2018-12-19 14:09:35,707 | INFO  | [AWT-EventQueue-0] | |matched|4503766058960010330|city (city)|5913678902576879188|PurchaseOrder.DeliverTo.Address.city|1.0
+2018-12-19 14:09:36,957 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6893031803402561286|PO.POShipTo.street1
+2018-12-19 14:09:37,543 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6380601717937645076|PO.POShipTo.attn
+2018-12-19 14:09:55,762 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6380601717937645076|PO.POShipTo.attn
+2018-12-19 14:09:59,572 | INFO  | [AWT-EventQueue-0] | |matched|6380601717937645076|attn (attn)|7686216616379832167|PurchaseOrder.DeliverTo.Contact.contactName|1.0
+2018-12-19 14:10:04,833 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6380601717937645076|PO.POShipTo.attn
+2018-12-19 14:10:05,952 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|1901770700120238552|PO.POShipTo.country
+2018-12-19 14:10:10,333 | INFO  | [AWT-EventQueue-0] | |matched|1901770700120238552|country (country)|521001915435154414|PurchaseOrder.DeliverTo.Address.country|1.0
+2018-12-19 14:10:11,367 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3443054045062959296|PO.POShipTo.stateProvince
+2018-12-19 14:10:11,837 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5402974588832905520|PO.POShipTo.street2
+2018-12-19 14:10:12,407 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3443054045062959296|PO.POShipTo.stateProvince
+2018-12-19 14:10:17,800 | INFO  | [AWT-EventQueue-0] | |matched|3443054045062959296|stateProvince (stateProvince)|6155552279086429901|PurchaseOrder.DeliverTo.Address.stateProvince|1.0
+2018-12-19 14:10:19,643 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:10:30,564 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:10:31,652 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|1901770700120238552|PO.POShipTo.country
+2018-12-19 14:10:32,770 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:10:52,729 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6380601717937645076|PO.POShipTo.attn
+2018-12-19 14:10:54,634 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:12:19,307 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6591706497366964051|PO.POLines.Item.unitPrice
+2018-12-19 14:12:22,863 | INFO  | [AWT-EventQueue-0] | |matched|6591706497366964051|unitPrice (unitPrice)|968996541609633044|PurchaseOrder.Items.Item.unitPrice|1.0
+2018-12-19 14:12:25,840 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|1223819113046466478|PO.POLines.Item.uom
+2018-12-19 14:12:28,895 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7222486277047709368|PO.POLines.Item.qty
+2018-12-19 14:12:34,225 | INFO  | [AWT-EventQueue-0] | |matched|7222486277047709368|qty (qty)|3608710731906649740|PurchaseOrder.Items.Item.quantity|1.0
+2018-12-19 14:12:57,733 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6705350112960933411|PO.POLines.Item.partNo
+2018-12-19 14:13:01,380 | INFO  | [AWT-EventQueue-0] | |matched|6705350112960933411|partNo (partNo)|1674381347140092818|PurchaseOrder.Items.Item.partNumber|0.6
+2018-12-19 14:13:08,801 | INFO  | [AWT-EventQueue-0] | |matched|6705350112960933411|partNo (partNo)|3658420988027648844|PurchaseOrder.Items.Item.itemNumber|0.4
+2018-12-19 14:13:11,539 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6705350112960933411|PO.POLines.Item.partNo
+2018-12-19 14:13:13,059 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7222486277047709368|PO.POLines.Item.qty
+2018-12-19 14:13:15,465 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7805365825559882220|PO.POLines.Item
+2018-12-19 14:13:33,739 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4794297483001619869|PO.POLines.Item.line
+2018-12-19 14:13:37,459 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|1223819113046466478|PO.POLines.Item.uom
+2018-12-19 14:13:48,505 | INFO  | [AWT-EventQueue-0] | |matched|1223819113046466478|uom (uom)|6542315493040219575|PurchaseOrder.Items.Item.unitOfMeasure|1.0
+2018-12-19 14:13:49,507 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6591706497366964051|PO.POLines.Item.unitPrice
+2018-12-19 14:13:50,172 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4794297483001619869|PO.POLines.Item.line
+2018-12-19 14:14:00,638 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7805365825559882220|PO.POLines.Item
+2018-12-19 14:14:03,761 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4794297483001619869|PO.POLines.Item.line
+2018-12-19 14:14:07,139 | INFO  | [AWT-EventQueue-0] | |noMatch|4794297483001619869|line (line)|1.0
+2018-12-19 14:14:07,803 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6705350112960933411|PO.POLines.Item.partNo
+2018-12-19 14:14:08,844 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4794297483001619869|PO.POLines.Item.line
+2018-12-19 14:14:12,068 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7805365825559882220|PO.POLines.Item
+2018-12-19 14:14:14,189 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:14:25,133 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:14:26,290 | INFO  | [AWT-EventQueue-0] | |noMatch|6788804701137022816|entityidentifider (entityidentifider)|1.0
+2018-12-19 14:14:27,139 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|94159788077238107|PO.POShipTo.street4
+2018-12-19 14:14:28,279 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:14:29,815 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:14:37,121 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:14:37,591 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:14:46,979 | INFO  | [AWT-EventQueue-0] | |matched|4153275732106410517|POBillTo (POBillTo)|2217436734123296202|PurchaseOrder.InvoiceTo|0.8
+2018-12-19 14:14:49,000 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:14:50,304 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|94159788077238107|PO.POShipTo.street4
+2018-12-19 14:14:50,843 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:14:57,291 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7805365825559882220|PO.POLines.Item
+2018-12-19 14:15:10,982 | INFO  | [AWT-EventQueue-0] | |matched|7805365825559882220|Item (Item)|143507443024456593|PurchaseOrder.Items.Item|0.9
+2018-12-19 14:15:16,961 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:15:58,690 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5920135458134906933|PO.POBillTo.stateProvince
+2018-12-19 14:16:01,529 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6487415578563249389|PO.POBillTo.country
+2018-12-19 14:16:01,983 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|2809192155756419875|PO.POBillTo.street3
+2018-12-19 14:16:04,173 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:16:09,350 | INFO  | [AWT-EventQueue-0] | |noMatch|4153275732106410517|POBillTo (POBillTo)|0.2
+2018-12-19 14:16:09,789 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|2809192155756419875|PO.POBillTo.street3
+2018-12-19 14:16:11,656 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:16:12,180 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3443054045062959296|PO.POShipTo.stateProvince
+2018-12-19 14:16:15,388 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:16:27,637 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7081719972481935794|PO.POLines.startAt
+2018-12-19 14:16:40,052 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7081719972481935794|PO.POLines.startAt
+2018-12-19 14:16:54,457 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7565717118200563568|PO.POLines.count
+2018-12-19 14:18:55,651 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5905283047934932697|PO.POBillTo.attn
+2018-12-19 14:19:07,430 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:19:18,197 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7565717118200563568|PO.POLines.count
+2018-12-19 14:19:22,155 | INFO  | [AWT-EventQueue-0] | |matched|7565717118200563568|count (count)|8450129499838618656|PurchaseOrder.Items.Item.salesValue|0.5
+2018-12-19 14:19:28,625 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:19:32,436 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7081719972481935794|PO.POLines.startAt
+2018-12-19 14:19:33,840 | INFO  | [AWT-EventQueue-0] | |noMatch|7081719972481935794|startAt (startAt)|0.2
+2018-12-19 14:19:50,461 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:19:55,891 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:19:56,662 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:20:12,606 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|7565717118200563568|PO.POLines.count
+2018-12-19 14:20:19,525 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6705350112960933411|PO.POLines.Item.partNo
+2018-12-19 14:20:27,201 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6591706497366964051|PO.POLines.Item.unitPrice
+2018-12-19 14:20:47,534 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:20:48,189 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:20:53,805 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:21:02,691 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:21:04,048 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:21:04,951 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:21:07,104 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:21:17,670 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:21:27,659 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:21:28,130 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:21:39,330 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5587189939799213848|PO.POShipTo.postalCode
+2018-12-19 14:21:39,831 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:21:56,407 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6893031803402561286|PO.POShipTo.street1
+2018-12-19 14:21:58,983 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:22:05,617 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5905283047934932697|PO.POBillTo.attn
+2018-12-19 14:22:06,165 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5726482943410180992|PO.POBillTo.city
+2018-12-19 14:22:07,870 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:22:13,886 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4959623816563422513|PO.POBillTo.street1
+2018-12-19 14:22:16,277 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:22:16,747 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:22:28,649 | INFO  | [AWT-EventQueue-0] | |matched|4153275732106410517|POBillTo (POBillTo)|7101638271191850059|PurchaseOrder.DeliverTo.Address|0.7
+2018-12-19 14:22:31,635 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:22:39,124 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4959623816563422513|PO.POBillTo.street1
+2018-12-19 14:22:47,469 | INFO  | [AWT-EventQueue-0] | |matched|4959623816563422513|street1 (street1)|4814801617920076274|PurchaseOrder.DeliverTo.Address.street1|0.7
+2018-12-19 14:22:49,158 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|175695982864981783|PO.POBillTo.street2
+2018-12-19 14:22:54,024 | INFO  | [AWT-EventQueue-0] | |matched|175695982864981783|street2 (street2)|8196904580930816330|PurchaseOrder.DeliverTo.Address.street2|0.7
+2018-12-19 14:22:55,491 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|2809192155756419875|PO.POBillTo.street3
+2018-12-19 14:22:58,352 | INFO  | [AWT-EventQueue-0] | |matched|2809192155756419875|street3 (street3)|3978519264861858550|PurchaseOrder.DeliverTo.Address.street3|0.7
+2018-12-19 14:22:59,386 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|9061856603036422106|PO.POBillTo.postalCode
+2018-12-19 14:22:59,802 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3447901572056999372|PO.POBillTo.street4
+2018-12-19 14:23:02,949 | INFO  | [AWT-EventQueue-0] | |matched|3447901572056999372|street4 (street4)|6714931990036405540|PurchaseOrder.DeliverTo.Address.street4|0.7
+2018-12-19 14:23:04,130 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|9061856603036422106|PO.POBillTo.postalCode
+2018-12-19 14:23:11,318 | INFO  | [AWT-EventQueue-0] | |matched|9061856603036422106|postalCode (postalCode)|7682819717042178126|PurchaseOrder.DeliverTo.Address.postalCode|0.7
+2018-12-19 14:23:12,891 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|2036980499595081254|PO.POBillTo.entityidentifider
+2018-12-19 14:23:14,743 | INFO  | [AWT-EventQueue-0] | |noMatch|2036980499595081254|entityidentifider (entityidentifider)|0.7
+2018-12-19 14:23:15,445 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3447901572056999372|PO.POBillTo.street4
+2018-12-19 14:23:16,084 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5920135458134906933|PO.POBillTo.stateProvince
+2018-12-19 14:23:20,728 | INFO  | [AWT-EventQueue-0] | |matched|5920135458134906933|stateProvince (stateProvince)|6155552279086429901|PurchaseOrder.DeliverTo.Address.stateProvince|0.7
+2018-12-19 14:23:22,178 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6487415578563249389|PO.POBillTo.country
+2018-12-19 14:23:28,950 | INFO  | [AWT-EventQueue-0] | |matched|6487415578563249389|country (country)|521001915435154414|PurchaseOrder.DeliverTo.Address.country|0.7
+2018-12-19 14:23:30,686 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5905283047934932697|PO.POBillTo.attn
+2018-12-19 14:23:31,541 | INFO  | [AWT-EventQueue-0] | |noMatch|5905283047934932697|attn (attn)|0.7
+2018-12-19 14:23:32,306 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5726482943410180992|PO.POBillTo.city
+2018-12-19 14:23:36,185 | INFO  | [AWT-EventQueue-0] | |matched|5726482943410180992|city (city)|5913678902576879188|PurchaseOrder.DeliverTo.Address.city|0.7
+2018-12-19 14:23:37,975 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5920135458134906933|PO.POBillTo.stateProvince
+2018-12-19 14:23:38,391 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4959623816563422513|PO.POBillTo.street1
+2018-12-19 14:23:39,225 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4153275732106410517|PO.POBillTo
+2018-12-19 14:23:40,591 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:23:41,810 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:23:47,087 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|6788804701137022816|PO.POShipTo.entityidentifider
+2018-12-19 14:23:59,004 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|3819069493608491366|PO.POShipTo
+2018-12-19 14:24:07,997 | INFO  | [AWT-EventQueue-0] | |matched|3819069493608491366|POShipTo (POShipTo)|6290374090207837462|PurchaseOrder.DeliverTo|1.0
+2018-12-19 14:24:10,419 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|5144382206321992920|PO.POLines
+2018-12-19 14:24:21,519 | INFO  | [AWT-EventQueue-0] | |matched|5144382206321992920|POLines (POLines)|4267797137181121425|PurchaseOrder.Footer|0.9
+2018-12-19 14:24:22,668 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|1223819113046466478|PO.POLines.Item.uom
+2018-12-19 14:24:30,860 | INFO  | [AWT-EventQueue-0] | |setTargetTerm|4627996133255557004|PO
