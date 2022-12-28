@@ -28,15 +28,15 @@
 
 **BibTeX**:
 
-@article{shraga2022powarematch,
-  title={PoWareMatch: a Quality-aware Deep Learning Approach to Improve Human Schema Matching},
-  author={Shraga, Roee and Gal, Avigdor},
-  journal={ACM Journal of Data and Information Quality (JDIQ)},
-  volume={14},
-  number={3},
-  pages={1--27},
-  year={2022},
-  publisher={ACM New York, NY}
+@article{shraga2022powarematch,  
+  title={PoWareMatch: a Quality-aware Deep Learning Approach to Improve Human Schema Matching},  
+  author={Shraga, Roee and Gal, Avigdor},  
+  journal={ACM Journal of Data and Information Quality (JDIQ)},  
+  volume={14},  
+  number={3},  
+  pages={1--27},  
+  year={2022},  
+  publisher={ACM New York, NY}  
 }
 
 ## The Team
