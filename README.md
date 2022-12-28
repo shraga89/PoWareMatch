@@ -24,7 +24,20 @@
 2. Once the models are trained, you can use the [PoWareMatch inference](https://github.com/shraga89/PoWareMatch/blob/master/RunFiles/Inference.ipynb) to calibrate human matching and generate better matches.  
  
 ## The Paper
-The paper is under submission.
+[*PoWareMatch: a Quality-aware Deep Learning Approach to Improve Human Schema Matching*](https://dl.acm.org/doi/pdf/10.1145/3483423). Roee Shraga, Avigdor Gal, ACM Journal of Data and Information Quality (JDIQ), 14(3), 1-27, 2022.
+
+**BibTeX**:
+
+@article{shraga2022powarematch,
+  title={PoWareMatch: a Quality-aware Deep Learning Approach to Improve Human Schema Matching},
+  author={Shraga, Roee and Gal, Avigdor},
+  journal={ACM Journal of Data and Information Quality (JDIQ)},
+  volume={14},
+  number={3},
+  pages={1--27},
+  year={2022},
+  publisher={ACM New York, NY}
+}
 
 ## The Team
 *PoWareMatch* was developed at the Technion - Israel Institute of Technology by [Roee Shraga](https://sites.google.com/view/roee-shraga/) under the supervision of [Prof. Avigdor Gal](https://agp.iem.technion.ac.il/avigal/)
